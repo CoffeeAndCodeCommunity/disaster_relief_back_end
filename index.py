@@ -5,21 +5,18 @@ import requests
 
 app = Flask(__name__)
 
-@app.route("/")
-def hello():
-    return "Hello World!"
-
-@app.route("/events")
-def events():
-    data = {"events": [{"name": "name1"}, {"name": "name2"}]}
-    return app.response_class(response=json.dumps(data), mimetype="application/json")
-
 smhi_url = 'https://opendata-download-warnings.smhi.se/api/version/2.json'
+
+data ={"events": [{"name": "average wind speed at sea", "severity": "Moderate", "description": "Lördag kväll tillfälligt sydväst 14 m/s."}, {"name": "heavy snow SMHI-B", "description": "Lördag sent eftermiddag och kväll, i den västra och nordligaste delen, snö eller blötsnö som kan ge 1-4 cm. I övriga delar faller nederbörden mest som regn eller snöblandat regn.", "severity": "Hazardous"}]}
 
 @app.route("/smhi")
 def smhi():
-    resp = requests.get(url=smhi_url)
-    data = resp.json() 
-    print(data)
+    # resp = requests.get(url=smhi_url)
+    # data = resp.json() 
     return app.response_class(response=json.dumps(data), mimetype="application/json")
+
+@app.route("/")
+def hello():
+    return "Hello world!"
+
 

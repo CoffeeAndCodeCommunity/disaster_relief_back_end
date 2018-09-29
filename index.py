@@ -9,4 +9,5 @@ def hello():
 
 @app.route("/events")
 def events():
-    return app.response_class(response=json.dumps({"name": "hej"}), mimetype="application/json")
+    data = {"events": [{"name": "name1"}, {"name": "name2"}]}
+    return app.response_class(response=json.dumps(data), mimetype="application/json")

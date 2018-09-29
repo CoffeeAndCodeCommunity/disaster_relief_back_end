@@ -2,6 +2,7 @@ from flask import Flask
 from flask import jsonify
 import json
 import requests
+from pymongo import MongoClient
 
 app = Flask(__name__)
 
@@ -19,4 +20,16 @@ def smhi():
 def hello():
     return "Hello world!"
 
-
+@app.route("/mongodb")
+def mongo():
+    client = MongoClient('localhost', 27017)
+    # db = client.get_default_database()
+    db = client['mydb']
+    events = db['events']
+    events.insert_many(data['events'])
+    query = {'severity': 'Moderate' }
+    cursor = events.find(query)
+    ourdata = []
+    for doc in cursor:
+        ourdata += doc
+    return app.response_class(response=json.dumps(ourdata), mimetype="application/json")

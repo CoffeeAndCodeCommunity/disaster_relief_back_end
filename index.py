@@ -2,7 +2,7 @@ from flask import Flask
 from flask import jsonify
 import json
 import requests
-from pymongo import MongoClient
+#from pymongo import MongoClient
 
 app = Flask(__name__)
 
